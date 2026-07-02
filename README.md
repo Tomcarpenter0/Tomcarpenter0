@@ -64,3 +64,4 @@ src/
 ├── scripts/animations.js       # GSAP/ScrollTrigger, re-inits on navigation
 └── styles/global.css           # design tokens (palette, type scale, spacing)
 ```
+
