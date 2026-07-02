@@ -14,7 +14,7 @@ outcome — with real metrics and honest craft.
 - **Astro View Transitions** — seamless page-to-page navigation
 
 Zero runtime bloat. Fonts are self-hosted, imagery is generated SVG, and every
-animation is intentional.
+animation is intentional. Clear.
 
 ## Local development
 
