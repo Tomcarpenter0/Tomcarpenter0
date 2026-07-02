@@ -1,0 +1,403 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Cover from '../components/Cover.astro';
+
+const works = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+
+const experience = [
+  {
+    period: '2024 — Present',
+    company: 'blu by BCA Digital',
+    role: 'Lead Product Designer',
+    description:
+      'Leading eight designers across onboarding, payments, and savings for a branchless bank serving 2M+ customers. Own the design system and the quality bar.',
+  },
+  {
+    period: '2021 — 2024',
+    company: 'Gojek',
+    role: 'Senior Product Designer',
+    description:
+      'Shipped GoFood ordering and live-tracking used by millions daily; drove the unified design language across four super-app services.',
+  },
+  {
+    period: '2018 — 2021',
+    company: 'Tokopedia',
+    role: 'UI/UX Designer',
+    description:
+      'Redesigned seller onboarding and listing flows through hypergrowth; ran field research with sellers across six Indonesian cities.',
+  },
+  {
+    period: '2016 — 2018',
+    company: 'Kompas Gramedia',
+    role: 'Graphic Designer',
+    description:
+      'Editorial layouts, infographics, and a visual system refresh for the weekend supplements of Indonesia’s largest newspaper group.',
+  },
+];
+
+const skills = [
+  {
+    group: 'Capabilities',
+    items: [
+      'Product & UX design',
+      'Design systems',
+      'Brand & editorial design',
+      'UX research',
+      'Motion & prototyping',
+      'Design leadership',
+    ],
+  },
+  {
+    group: 'Toolbox',
+    items: ['Figma', 'InDesign', 'Illustrator', 'After Effects', 'Rive', 'ProtoPie'],
+  },
+];
+
+const rulerYears = ['2016', '2018', '2021', '2024', '2026'];
+---
+
+<Base title="Tom Carpen — Senior Graphic & UI/UX Designer">
+  <!-- signature: a decade-long ruler that fills as you scroll -->
+  <aside class="ruler" aria-hidden="true">
+    <div class="ruler-track">
+      <div class="ruler-fill" data-ruler-fill></div>
+    </div>
+    <div class="ruler-years">
+      {rulerYears.map((y) => <span>{y}</span>)}
+    </div>
+  </aside>
+
+  <main>
+    <section class="hero wrap" data-hero>
+      <p class="eyebrow" data-hero-line>Tom Carpen — Jakarta, Indonesia</p>
+      <h1>
+        <span class="hero-line" data-hero-line>Ten years turning</span>
+        <span class="hero-line hero-ink" data-hero-line>ink</span>
+        <span class="hero-line" data-hero-line>into interfaces.</span>
+      </h1>
+      <p class="hero-sub" data-hero-line>
+        Senior graphic & UI/UX designer. Currently leading product design at
+        <strong>blu by BCA Digital</strong> — previously Gojek, Tokopedia, and Kompas
+        Gramedia.
+      </p>
+      <p class="mono scroll-cue" data-hero-line>Scroll ↓</p>
+    </section>
+
+    <section id="about" class="section wrap">
+      <p class="eyebrow" data-reveal>About</p>
+      <h2 class="section-title" data-reveal>Grid first, hierarchy second, decoration last.</h2>
+      <div class="about-cols" data-stagger>
+        <p>
+          I started in a newsroom, laying out pages against a nightly print deadline. A
+          decade later I lead product design at a digital bank. The thread through it
+          all is systems — grids, type, components — that let good decisions repeat
+          themselves.
+        </p>
+        <p>
+          The best design work I've done wasn't a screen; it was a rule other people
+          could use without me in the room. That's what I build: products, and the
+          systems that keep them coherent after launch.
+        </p>
+      </div>
+    </section>
+
+    <section id="experience" class="section wrap">
+      <p class="eyebrow" data-reveal>Experience</p>
+      <h2 class="section-title" data-reveal>A decade, four companies, one arc.</h2>
+      <ol class="timeline" data-stagger>
+        {
+          experience.map((job) => (
+            <li class="timeline-item">
+              <p class="mono">{job.period}</p>
+              <div>
+                <h3>{job.role}</h3>
+                <p class="timeline-company">{job.company}</p>
+                <p class="timeline-desc">{job.description}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section id="work" class="section wrap">
+      <p class="eyebrow" data-reveal>Selected work</p>
+      <h2 class="section-title" data-reveal>One case study per chapter.</h2>
+      <div class="works-grid" data-stagger>
+        {
+          works.map((work) => (
+            <a class="work-card" href={`/work/${work.id}/`}>
+              <Cover
+                variant={work.data.cover}
+                accent={work.data.accent}
+                transitionName={`cover-${work.id}`}
+              />
+              <div class="work-meta">
+                <p class="mono">
+                  {work.data.company} · {work.data.year}
+                </p>
+                <h3>{work.data.title}</h3>
+                <p class="work-tags mono">{work.data.tags.join(' / ')}</p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="skills" class="section wrap">
+      <p class="eyebrow" data-reveal>Skills</p>
+      <h2 class="section-title" data-reveal>What I bring to the table.</h2>
+      <div class="skills-grid" data-stagger>
+        {
+          skills.map((column) => (
+            <div>
+              <h3 class="skills-head mono">{column.group}</h3>
+              <ul class="skills-list">
+                {column.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="contact" class="section wrap contact">
+      <p class="eyebrow" data-reveal>Contact</p>
+      <h2 class="section-title" data-reveal>Let's make something coherent.</h2>
+      <a class="contact-mail" data-reveal href="mailto:hello@tomcarpen.design">
+        hello@tomcarpen.design
+      </a>
+      <div class="socials mono" data-reveal>
+        <a href="https://dribbble.com/tomcarpen">Dribbble</a>
+        <a href="https://www.linkedin.com/in/tomcarpen">LinkedIn</a>
+        <a href="https://www.instagram.com/tomcarpen.design">Instagram</a>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  /* career ruler (signature element) */
+  .ruler {
+    position: fixed;
+    top: 0;
+    left: 1.5rem;
+    height: 100vh;
+    display: flex;
+    gap: 0.6rem;
+    padding-block: 5.5rem 2rem;
+    z-index: 5;
+  }
+
+  .ruler-track {
+    width: 2px;
+    background: var(--line);
+    position: relative;
+  }
+
+  .ruler-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--turmeric);
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .ruler-years {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 1100px) {
+    .ruler {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ruler-fill {
+      transform: none;
+    }
+  }
+
+  /* hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    padding-top: 4rem;
+  }
+
+  .hero h1 {
+    font-size: var(--step-hero);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-line {
+    display: block;
+  }
+
+  .hero-ink {
+    color: var(--turmeric);
+    font-style: italic;
+    font-family: var(--font-display);
+  }
+
+  .hero-sub {
+    max-width: 46ch;
+    color: var(--muted);
+  }
+
+  .hero-sub strong {
+    color: var(--paper);
+  }
+
+  .scroll-cue {
+    margin-top: 2rem;
+    letter-spacing: 0.2em;
+  }
+
+  /* about */
+  .about-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 2.5rem;
+    max-width: 60rem;
+  }
+
+  .about-cols p {
+    color: var(--muted);
+    font-size: 1.1em;
+  }
+
+  /* experience timeline */
+  .timeline {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: 1.5rem;
+    padding-block: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .timeline-item h3 {
+    font-size: var(--step-h3);
+  }
+
+  .timeline-company {
+    color: var(--turmeric);
+    font-weight: 600;
+    margin-top: 0.25rem;
+  }
+
+  .timeline-desc {
+    color: var(--muted);
+    margin-top: 0.75rem;
+    max-width: 56ch;
+  }
+
+  @media (max-width: 640px) {
+    .timeline-item {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+
+  /* works grid */
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+    gap: 2.5rem;
+  }
+
+  .work-card {
+    display: block;
+  }
+
+  .work-card:hover h3 {
+    color: var(--turmeric);
+  }
+
+  .work-meta {
+    padding-top: 1.25rem;
+  }
+
+  .work-meta h3 {
+    font-size: var(--step-h3);
+    margin-block: 0.4rem;
+    transition: color 0.2s ease;
+  }
+
+  .work-tags {
+    color: var(--muted);
+  }
+
+  /* skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 2.5rem;
+    max-width: 48rem;
+  }
+
+  .skills-head {
+    color: var(--turmeric);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 1rem;
+  }
+
+  .skills-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .skills-list li {
+    padding-block: 0.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  /* contact */
+  .contact {
+    padding-bottom: var(--space-section);
+  }
+
+  .contact-mail {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4.5vw, 3rem);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--turmeric);
+    text-underline-offset: 0.2em;
+    overflow-wrap: anywhere;
+  }
+
+  .socials {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .socials a:hover {
+    color: var(--paper);
+  }
+</style>

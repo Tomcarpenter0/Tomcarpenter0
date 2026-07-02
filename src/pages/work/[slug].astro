@@ -1,0 +1,130 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+
+export async function getStaticPaths() {
+  const works = await getCollection('work');
+  return works.map((work) => ({
+    params: { slug: work.id },
+    props: { work },
+  }));
+}
+
+const { work } = Astro.props;
+const { Content } = await render(work);
+
+const works = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const next = works[(works.findIndex((w) => w.id === work.id) + 1) % works.length];
+---
+
+<Base title={`${work.data.title} — Tom Carpen`} description={work.data.summary}>
+  <main class="wrap study">
+    <header class="study-head">
+      <p class="eyebrow" data-reveal>
+        {work.data.company} · {work.data.year} · {work.data.role}
+      </p>
+      <h1 data-reveal>{work.data.title}</h1>
+      <p class="study-summary" data-reveal>{work.data.summary}</p>
+    </header>
+
+    <dl class="metrics" data-stagger>
+      {
+        work.data.metrics.map((metric) => (
+          <div class="metric">
+            <dt class="mono">{metric.label}</dt>
+            <dd>{metric.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <Cover
+      variant={work.data.cover}
+      accent={work.data.accent}
+      transitionName={`cover-${work.id}`}
+    />
+
+    <article class="prose">
+      <Content />
+    </article>
+
+    <nav class="study-nav" aria-label="Case study">
+      <a href="/#work">← All work</a>
+      <a href={`/work/${next.id}/`}>Next: {next.data.title} →</a>
+    </nav>
+  </main>
+</Base>
+
+<style>
+  .study {
+    padding-top: 8rem;
+    padding-bottom: calc(var(--space-section) / 2);
+  }
+
+  .study-head h1 {
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    max-width: 18ch;
+    margin-top: 1rem;
+  }
+
+  .study-summary {
+    color: var(--muted);
+    max-width: 56ch;
+    margin-top: 1.5rem;
+    font-size: 1.1em;
+  }
+
+  .metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin-block: 3rem;
+    padding: 0;
+  }
+
+  .metric dt {
+    color: var(--muted);
+  }
+
+  .metric dd {
+    margin: 0.25rem 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    color: var(--turmeric);
+  }
+
+  .prose {
+    max-width: 44rem;
+    margin-top: 4rem;
+  }
+
+  .prose :global(h2) {
+    font-size: var(--step-h3);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--turmeric);
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.25rem;
+    color: var(--paper);
+  }
+
+  .study-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: var(--step-small);
+  }
+
+  .study-nav a:hover {
+    color: var(--turmeric);
+  }
+</style>

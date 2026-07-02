@@ -1,0 +1,119 @@
+/* ————————————————————————————————
+   Tom Carpen — design tokens
+   Ink to interface: batik indigo, warm paper, turmeric.
+   ———————————————————————————————— */
+
+:root {
+  /* palette */
+  --indigo-950: #0b1530;
+  --indigo-900: #12204a;
+  --indigo-800: #1c2f66;
+  --paper: #f2ecdd;
+  --muted: #93a0c4;
+  --turmeric: #e9a13b;
+  --line: rgba(242, 236, 221, 0.14);
+
+  /* type */
+  --font-display: 'Syne Variable', sans-serif;
+  --font-body: 'Instrument Sans Variable', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --step-hero: clamp(2.6rem, 8.5vw, 6.5rem);
+  --step-h2: clamp(1.9rem, 4.5vw, 3.4rem);
+  --step-h3: clamp(1.25rem, 2.2vw, 1.7rem);
+  --step-body: clamp(1rem, 1.1vw, 1.125rem);
+  --step-small: 0.875rem;
+  --step-label: 0.75rem;
+
+  /* layout */
+  --space-section: clamp(6rem, 14vh, 10rem);
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --content-max: 72rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--indigo-950);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--turmeric);
+  color: var(--indigo-950);
+}
+
+:focus-visible {
+  outline: 2px solid var(--turmeric);
+  outline-offset: 3px;
+}
+
+/* shared primitives */
+.wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: calc(var(--space-section) / 2);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--turmeric);
+}
+
+.section-title {
+  font-size: var(--step-h2);
+  margin-top: 0.75rem;
+  margin-bottom: 2.5rem;
+  max-width: 22ch;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+  color: var(--muted);
+}

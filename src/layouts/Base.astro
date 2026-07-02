@@ -1,0 +1,120 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '@fontsource-variable/syne';
+import '@fontsource-variable/instrument-sans';
+import '@fontsource/ibm-plex-mono';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Tom Carpen — Senior Graphic & UI/UX Designer in Jakarta. Ten years turning ink into interfaces at Kompas Gramedia, Tokopedia, Gojek, and blu by BCA Digital.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <ClientRouter />
+  </head>
+  <body>
+    <header class="site-nav">
+      <a class="brand" href="/">Tom Carpen<span class="brand-mark">©</span></a>
+      <nav aria-label="Main">
+        <a href="/#work">Work</a>
+        <a href="/#about">About</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+    </header>
+
+    <slot />
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <p class="mono">© 2026 Tom Carpen — Jakarta, Indonesia</p>
+        <p class="mono footer-note">
+          This is a concept portfolio. Tom Carpen is a fictional persona; companies are
+          referenced as employer context only.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      import '../scripts/animations.js';
+    </script>
+  </body>
+</html>
+
+<style>
+  .site-nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1.25rem var(--gutter);
+    background: linear-gradient(to bottom, var(--indigo-950) 30%, transparent);
+  }
+
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+
+  .brand-mark {
+    color: var(--turmeric);
+  }
+
+  .site-nav nav {
+    display: flex;
+    gap: 1.75rem;
+  }
+
+  .site-nav nav a {
+    font-family: var(--font-mono);
+    font-size: var(--step-label);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+
+  .site-nav nav a:hover {
+    color: var(--paper);
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--line);
+    padding-block: 2.5rem;
+  }
+
+  .footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .footer-note {
+    max-width: 44ch;
+  }
+
+  @media (max-width: 640px) {
+    .site-nav nav {
+      gap: 1rem;
+    }
+  }
+</style>
